@@ -26,10 +26,7 @@ jobs:
         dotnet-version: '3.1.100' #SDK Version to use
     - name: Try to build my code
       run: dotnet build
-      
-  test:
-    runs-on: ubuntu-latest
-    steps:
+
     - name: Run Unit tests on my code
       run: dotnet test -v n
 
