@@ -29,12 +29,10 @@ jobs:
 
     #- name: Run Unit tests on my code
      # run: dotnet test -v n
-    - name: login  to heroku
-      env:
-            HEROKU_TOKEN : ${{ secrets.HEROKU_TOKEN }}
-      run: |
-            heroku login
-            heroku container:login
+    - name: Login to Heroku Container registry
+      env: 
+        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+      run: heroku container:login 
          
 
     - name: push to heroku
