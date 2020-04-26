@@ -30,15 +30,14 @@ jobs:
     #- name: Run Unit tests on my code
      # run: dotnet test -v n
 
-    - name: Login to Heroku Container registry
+    - name: push to heroku
       env: 
-        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-      run: 
-        heroku login
-        
-    - name: Deploy to Heroku
-      env:
-        HEROKU_API_TOKEN: ${{ secrets.HEROKU_API_TOKEN }}
-        HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
-      if: github.ref == 'refs/heads/master' && job.status == 'success'
-      run: git push https://heroku:$HEROKU_API_TOKEN@git.heroku.com/$HEROKU_APP_NAME.git origin/master:master
+            HEROKU_REGISTRY_URL: registry.heroku.com
+            HEROKU_TOKEN : ${{ secrets.HEROKU_TOKEN }}
+      run: |
+            docker login --username=_ --password $HEROKU_TOKEN $HEROKU_REGISTRY_URL
+            export HEROKU_API_KEY=$HEROKU_TOKEN
+            heroku container:login
+            heroku container:push web --app cia-github-actions-test
+            heroku container:release web --app cia-github-actions-test
+            heroku ps:scale web=1 --app cia-github-actions-test
