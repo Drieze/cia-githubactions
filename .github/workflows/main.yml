@@ -24,21 +24,24 @@ jobs:
     - uses: actions/setup-dotnet@v1
       with: 
         dotnet-version: '3.1.100' #SDK Version to use
-    - name: Try to build my code
-      run: dotnet build
+    #- name: Try to build my code
+     # run: dotnet build
 
-    - name: Run Unit tests on my code
-      run: dotnet test -v n
-
+    #- name: Run Unit tests on my code
+     # run: dotnet test -v n
     - name: Login to Heroku Container registry
       env: 
         HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
       run: heroku container:login 
-    - name: Build and push
-      env:
+         
+
+    - name: push to heroku
+      env: 
+        HEROKU_REGISTRY_URL: registry.heroku.com
         HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-      run: heroku container:push -a ${{ secrets.HEROKU_APP_NAME }} web --recursive
-    - name: Release
-      env:
-        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-      run: heroku container:release -a ${{ secrets.HEROKU_APP_NAME }} web 
+      run: |
+            docker build -t cia-heroku-test .
+            heroku container:login
+            docker tag cia-heroku-test registry.heroku.com/cia-github-actions-test/web
+            docker push registry.heroku.com/cia-github-actions-test/web
+            heroku container:release web -a cia-github-actions-test
