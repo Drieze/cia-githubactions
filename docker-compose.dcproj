@@ -3,7 +3,7 @@
   <PropertyGroup Label="Globals">
     <ProjectVersion>2.1</ProjectVersion>
     <DockerTargetOS>Linux</DockerTargetOS>
-    <ProjectGuid>c229f2f7-41ad-4e3f-a85e-5271186d34aa</ProjectGuid>
+    <ProjectGuid>1696e58a-5550-4783-84e4-98f784a8fc9a</ProjectGuid>
     <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
     <DockerServiceUrl>{Scheme}://localhost:{ServicePort}</DockerServiceUrl>
     <DockerServiceName>cicd.mvc</DockerServiceName>
