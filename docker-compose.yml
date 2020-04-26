@@ -1,8 +1,0 @@
-version: '3.4'
-
-services:
-  cicd.mvc:
-    image: ${DOCKER_REGISTRY-}cicdmvc
-    build:
-      context: .
-      dockerfile: CICD.Mvc/Dockerfile
