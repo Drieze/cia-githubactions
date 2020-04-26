@@ -24,18 +24,17 @@ jobs:
     - uses: actions/setup-dotnet@v1
       with: 
         dotnet-version: '3.1.100' #SDK Version to use
-    - name: Try to build my code
-      run: dotnet build
+    #- name: Try to build my code
+     # run: dotnet build
 
-    - name: Run Unit tests on my code
-      run: dotnet test -v n
+    #- name: Run Unit tests on my code
+     # run: dotnet test -v n
 
     - name: Login to Heroku Container registry
       env: 
         HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
       run: 
         heroku login
-        heroku container:login 
         
     - name: Build and push
       env:
