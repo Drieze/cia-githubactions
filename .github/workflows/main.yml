@@ -37,11 +37,10 @@ jobs:
 
     - name: push to heroku
       env: 
-            HEROKU_REGISTRY_URL: registry.heroku.com
-            HEROKU_TOKEN : ${{ secrets.HEROKU_TOKEN }}
+        HEROKU_REGISTRY_URL: registry.heroku.com
+        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
       run: |
             docker build -t cia-heroku-test .
-            export HEROKU_API_KEY=$HEROKU_TOKEN
             heroku container:login
             docker tag cia-heroku-test registry.heroku.com/cia-github-actions-test/web
             docker push registry.heroku.com/cia-github-actions-test/web
