@@ -35,8 +35,9 @@ jobs:
             HEROKU_REGISTRY_URL: registry.heroku.com
             HEROKU_TOKEN : ${{ secrets.HEROKU_TOKEN }}
       run: |
+            docker build -t cia-heroku-test .
             export HEROKU_API_KEY=$HEROKU_TOKEN
             heroku container:login
-            heroku container:push web --app cia-github-actions-test
-            heroku container:release web --app cia-github-actions-test
-            heroku ps:scale web=1 --app cia-github-actions-test
+            docker tag cia-heroku-test registry.heroku.com/cia-github-actions-test/web
+            docker push registry.heroku.com/cia-github-actions-test/web
+            heroku container:release web -a cia-github-actions-test
